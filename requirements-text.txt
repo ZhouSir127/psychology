@@ -1,0 +1,3 @@
+# 可选：启用真正的多语言文本向量模型。先安装 requirements.txt。
+sentence-transformers>=3,<6
+huggingface-hub>=0.25,<2

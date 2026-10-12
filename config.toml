@@ -1,0 +1,27 @@
+# 路径相对于项目根目录；修改配置后重启后端。
+[app]
+data_dir = "runtime"
+max_file_mb = 20
+max_pending_tasks = 8
+
+# 只替换这里的模块路径和选项，API、数据库、页面可以继续使用。
+[plugins]
+extractor = "app.adapters.features:DemoFeatureExtractor"
+predictor = "app.adapters.predictor:MockPredictor"
+
+[features]
+# simple = 可离线运行的文本统计占位；minilm = 下载后的384维语义向量。
+text_mode = "simple"
+face_model = "resources/models/face/face_landmarker.task"
+text_model = "resources/models/text/minilm"
+
+[prediction]
+default_scenario = "中风险演示"
+# 仅用来测试五级展示、提示和导出，不从特征推断心理状态。
+scenarios = ["安全演示", "低风险演示", "中风险演示", "高风险演示", "极高危演示"]
+scores = [10, 30, 50, 70, 90]
+
+[risk]
+# 连续分数区间：<=20, (20,40], (40,60], (60,80], (80,100]。
+upper_bounds = [20, 40, 60, 80, 100]
+labels = ["安全", "低风险", "中风险", "高风险", "极高危"]
